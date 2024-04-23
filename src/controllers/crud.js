@@ -33,6 +33,17 @@ exports.role = (req, res) => {
    );
 };
 
+exports.insert = (req, res) => {
+   mysql.query(
+      'INSERT INTO workers(nome, sobrenome, idade, cargo) VALUES(?,?,?,?);',
+      [ req.body.name, req.body.lastName, req.body.age, req.body.role ],
+      function(err, results, fields) {
+         if(err) throw new Error('Error on inserting');
+         return res.json({ sucess: "true" });
+      }
+   );
+};
+
 exports.update = (req, res) => {
    mysql.query(
       'UPDATE workers SET nome=?, sobrenome=?, idade=?, cargo=? WHERE(id=?)', 
