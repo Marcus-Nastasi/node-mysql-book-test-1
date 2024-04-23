@@ -5,18 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ts": "tsc app.ts -w",
     "dev": "nodemon app.js -w"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "nodemon": "^3.1.0",
-    "typescript": "^5.4.5"
+    "nodemon": "^3.1.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mysql": "^2.18.1"
   }
 }
