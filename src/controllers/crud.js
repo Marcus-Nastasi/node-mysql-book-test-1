@@ -5,6 +5,7 @@ exports.all = (req, res) => {
       'SELECT * FROM workers;',
       function(err, results, fields) {
          if(err) throw err;
+         if(results.length === 0) return res.json({ error: "Empty values" });
          return res.json(results);
       }
    );
@@ -15,6 +16,7 @@ exports.single = (req, res) => {
       'SELECT * FROM workers WHERE(id=?);', [ req.params.id ],
       function(err, results, fields) {
          if(err) throw err;
+         if(results.length === 0) return res.json({ error: "Empty values" });
          return res.json(results);
       }
    );
@@ -25,6 +27,30 @@ exports.role = (req, res) => {
       'SELECT * FROM workers WHERE(cargo=?);', [ req.query.cargo ],
       function(err, results, fields) {
          if(err) throw err;
+         if(results.length === 0) return res.json({ error: "Empty values" });
+         return res.json(results);
+      }
+   );
+};
+
+exports.update = (req, res) => {
+   mysql.query(
+      'UPDATE workers SET nome=?, sobrenome=?, idade=?, cargo=? WHERE(id=?)', 
+      [req.query.nome, req.query.sobrenome, parseInt(req.query.idade), req.query.cargo, parseInt(req.params.id)],
+      function(err, results, fields) {
+         if(err) throw err;
+         if(results.length === 0) return res.json({ error: "Empty values" });
+         return res.json(results);
+      }
+   );
+};
+
+exports.delete = (req, res) => {
+   mysql.query(
+      'DELETE FROM workers WHERE(id=?)', [ req.params.id ],
+      function(err, results, fields) {
+         if(err) throw new Error(err.message);
+         if(results.length === 0) return res.json({ error: "Empty values" });
          return res.json(results);
       }
    );
